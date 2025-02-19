@@ -1,1 +1,3 @@
-# LoadstringGen
+# Loadstring Genorator
+
+By Smartlightyear
