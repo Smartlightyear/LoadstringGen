@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roblox Loadstring Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .ad-banner {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .textarea-container {
+            position: relative;
+            margin: 10px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #333;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification"></div>
+    
+    <div class="ad-banner">
+        <a href="https://github.com/Smartlightyear/DoorsV3/blob/main/CodeBoxDoc.md" style="color: white; text-decoration: none;">
+            Learn to code in Roblox - Click here!
+        </a>
+    </div>
+
+    <div class="container">
+        <h2>Loadstring Generator</h2>
+        <input type="text" id="rawLink" placeholder="Enter raw file URL...">
+        <button onclick="generateLoadstring()">Generate Loadstring</button>
+        <div class="textarea-container">
+            <textarea id="loadstringOutput" readonly placeholder="Loadstring code will appear here..."></textarea>
+            <button class="copy-btn" onclick="copyText('loadstringOutput')">Copy</button>
+        </div>
+    </div>
+
+    <script>
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        function copyText(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            showNotification('Copied to clipboard!');
+        }
+
+        function generateLoadstring() {
+            const rawLink = document.getElementById('rawLink').value;
+            if (!rawLink.trim()) {
+                showNotification('Please enter a raw link first!');
+                return;
+            }
+            
+            const loadstring = `loadstring(game:HttpGet("${rawLink}"))()`;
+            document.getElementById('loadstringOutput').value = loadstring;
+            showNotification('Loadstring generated successfully!');
+        }
+    </script>
+</body>
+</html>
